@@ -1,0 +1,7 @@
+.print-box {
+    height: 95vh; /* Set the height of the box */
+    /* background-color: #f6ebebd7; Set the background color of the box */
+    border: 1px solid rgb(183, 179, 179); /* Add a border to the box */
+    padding: 5px; /* Add padding to the inside of the box */
+    margin: 5px; /* Add margin to the outside of the box */
+}

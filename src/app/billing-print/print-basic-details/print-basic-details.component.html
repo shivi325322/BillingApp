@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="property-group">
+            <div class="property-key">
+                <strong>Patient OPD ID :</strong>
+            </div>
+            <div class="property-value">
+                {{this.formValues._id}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="property-group">
+            <div class="property-key">
+                <strong>Date of Admission :</strong>
+            </div>
+            <div class="property-value">
+                {{formValues._DOA | date:'mediumDate'}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="property-group">
+            <div class="property-key">
+            <strong>Patient Name :</strong>
+            </div>
+            <div class="property-value">
+                {{formValues._name}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="property-group">
+            <div class="property-key">
+            <strong>Billing Date :</strong>
+            </div>
+            <div class="property-value">
+                {{formValues._DOB| date:'mediumDate'}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="property-group">
+            <div class="property-key">
+            <strong>Age :</strong>
+            </div>
+            <div class="property-value">
+                {{formValues._age}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="property-group">
+            <div class="property-key">
+            <strong>Gender :</strong>
+            </div>
+            <div class="property-value">
+                {{formValues._gender}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    
+    <div class="col-md-6">
+        <div class="property-group">
+            <div class="property-key">
+                <strong>Consultant Name: </strong>
+            </div>
+            <div class="property-value">
+                Dr. Ravi S Pandey
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="property-group">
+            <div class="property-key">
+            <strong>Mobile :</strong>
+            </div>
+            <div class="property-value">
+                {{formValues._mobile}}
+            </div>
+        </div>
+    </div>
+</div>
+
+

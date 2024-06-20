@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+
+.line {
+    width: 1px; /* Set the width of the line */
+    height: 100vh; /* Set the height of the line to the full height of the screen */
+    background-color: #337ab7; /* Set the color of the line */
+    position: absolute; /* Position the line on the page */
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hr {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+    margin:10px 0 10px 0;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.right{
+    float: right;
+}

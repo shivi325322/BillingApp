@@ -1,0 +1,17 @@
+.logo {
+    width:190px;
+    height: 100px;
+    display: block;
+    /* margin: 0 auto; */
+}
+
+.bill-title {
+    font-size: 18px;
+    font-weight: bold;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.bill-address {
+    font-size: 13px;
+}
+
