@@ -32,6 +32,7 @@ export class BillingPrintComponent implements OnInit {
     pdf.html(this.panel.nativeElement,{
       callback: function (pdf) {
         pdf.setFontSize(12);
+        pdf.setFont('Noto Sans');
         pdf.save(fname);
       }
     });

@@ -11,6 +11,7 @@ export class BasicDetails{
     public _paymentType:string='';
     public _discount:number=0;
     public _email:string='';
+    public _cost:number=0;
 
     constructor(
         private id:string,
@@ -23,7 +24,8 @@ export class BasicDetails{
         private treatmentType:string,
         private payment,
         private discount,
-        private email) {
+        private email,
+        private cost) {
             this._id=id;
             this._name=name;
             this._age=age;
@@ -35,5 +37,6 @@ export class BasicDetails{
             this._paymentType=payment;
             this._discount=discount;
             this._email=email;
+            this._cost=cost;
     }
 }

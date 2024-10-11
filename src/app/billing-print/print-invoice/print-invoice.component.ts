@@ -20,15 +20,16 @@ _invoiceDetails:any;
     console.log('print-invoice_component');
     console.log(this.formvalues);
     this.today=this.formvalues.DOB;
+    const cost = parseInt(this.formvalues.cost);
     if(this.formvalues.treatmentType==='0'){
-      this.dataService.addServiceList('Consultation',1,500);
+      this.dataService.addServiceList('Consultation',1,cost);
     }else 
     if(this.formvalues.treatmentType==='1'){
-      this.dataService.addServiceList('Consultation',1,500);
+      this.dataService.addServiceList('Consultation',1,cost);
     }else 
-    if(this.formvalues.treatmentType==='7')
+    if(this.formvalues.treatmentType==='2')
     {
-      this.dataService.addServiceList('7 Days treatment plan includes Cupping, Dry Needling, K-Taping, Exercise Therapy, Electro Therapy',1,4000);
+      this.dataService.addServiceList('7 Days treatment plan includes Cupping, Dry Needling, K-Taping, Exercise Therapy, Electro Therapy',1,cost);
     }
     this._invoiceDetails=this.dataService.getServiceList();
     console.log('check final service list');
