@@ -48,39 +48,13 @@ export class BillingService{
       'desc':'Consultation'
     },
     {
-    'key':'7',
+    'key':'2',
     'value':'7 Days treatment Plan',
     'desc':'7 Days treatment Plan'
     }
   ]
 
-  //Data for additionalServices to bind a checkboxes
-  // AdditionalServices=[
-  //   {
-  //     'serviceName':'Cupping',
-  //     'serviceCost': 1000
-  //   },
-  //   {
-  //     'serviceName':'DryNeedling',
-  //     'serviceCost': 1000
-  //   },
-  //   {
-  //     'serviceName':'Chiropractic',
-  //     'serviceCost': 2000
-  //   },
-  //   {
-  //     'serviceName':'K-taping',
-  //     'serviceCost': 500
-  //   },
-  //   {
-  //     'serviceName':'Exercixe Therapy',
-  //     'serviceCost': 400
-  //   },
-  //   {
-  //     'serviceName':'Electro Therapy',
-  //     'serviceCost': 600
-  //   }
-  // ]; 
+
 
   setBillingDetails(form:NgForm){
     this.discount=form.value.discount;
@@ -96,7 +70,8 @@ export class BillingService{
       form.value.treatmentType,
       form.value.payment,
       form.value.discount,
-      form.value.email
+      form.value.email,
+      form.value.cost,
     );
     // this.basicDetails={'name':form.value.name,'age':form.value.age};
   }

@@ -14,7 +14,7 @@ export class BillingFormComponent implements OnInit {
 
   //Setting default values
   defaultEmail = 'synergycliniclko@gmail.com';
-  defaultTreatmentType = '7';
+  defaultTreatmentType = '2';
   defaultDiscountedAmount = '0';
  
   //Data to bind a radiobuttons
