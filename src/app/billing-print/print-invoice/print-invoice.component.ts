@@ -12,6 +12,7 @@ formvalues:any;
 _treatmentType:string;
 today = new Date();
 _TotalAmount:number=0;
+_DiscountedAmount:number=0;
 _invoiceDetails:any;
   constructor(private dataService:BillingService) { }
 
@@ -35,7 +36,9 @@ _invoiceDetails:any;
     console.log('check final service list');
     console.log(this._invoiceDetails);
     
-    this._TotalAmount=this.dataService.GetTotalBillAmount();
+    let Amount=this.dataService.GetTotalBillAmount();
+    this._TotalAmount = Amount[0];
+    this._DiscountedAmount = Amount[1];
   
     //console.log('OnPrintInvoiceComponent_ExecutedService_GetTotalBillAmount');
   }

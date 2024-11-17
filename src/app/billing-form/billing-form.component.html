@@ -214,7 +214,7 @@
             <div class="col-md-6"> 
               <div class="form-group">
                 <div>
-                  <label for="discount">Discount amount(e.g : Rs 100)</label>
+                  <label for="discount">Discount</label>
                 </div>
                 <div>
                   <input 
@@ -222,7 +222,9 @@
                   class="form-control" 
                   name="discount" 
                   [ngModel] = "defaultDiscountedAmount"
-                  required>
+                  required
+                  min="5" 
+                  max="20">
                 </div>
                 <div class="text-danger" 
                 *ngIf="form.controls.discount.touched && form.controls.discount?.errors?.required">Discount is required</div>
