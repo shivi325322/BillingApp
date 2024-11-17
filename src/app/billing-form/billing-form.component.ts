@@ -48,23 +48,15 @@ export class BillingFormComponent implements OnInit {
   //Gets the value of the form through NgForm type from the template. This is event is triggered when submit button if clicked of the form
   submitForm(form: NgForm){
     //console.log(form);
-    //console.log(this.infoForm);
-    //console.log(this.Services);
-    //console.log(this.additionalServicesList);
-    console.log('onSubmitTriggered');
+    console.log('SubmitTriggered');
     this.dataService.setBillingDetails(form);
     this.router.navigate(['/billing-print']);
   }
 
   onSittingsChange(){
     console.log('onChangeTriggered');
-    //console.log('No of Sittings'+this.sittings);
-    //console.log(this.infoForm.value.adservices);
     let filteredData=this.dataService.additionalServiceList.filter(s=>s.id===this.infoForm.value.adservices).map(i=> i.serviceCost);
-    //console.log(this.dataService.additionalServiceList);
-    //console.log('service cost'+ filteredData);
     this.calcCost=this.sittings * Number(filteredData);
-    //console.log(this.calcCost);
   }
 
   onAddService(){

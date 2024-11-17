@@ -105,7 +105,9 @@ export class BillingService{
     totalAmtList.forEach(element => {
       this._TotalAmount=this._TotalAmount+element;
     });
-    return this._TotalAmount=this._TotalAmount - this.discount;
+    let discountedAmount = Math.floor(this._TotalAmount * (this.discount/100));
+    this._TotalAmount= Math.floor(this._TotalAmount - discountedAmount);
+    return [this._TotalAmount,discountedAmount];
   }
 }
 
