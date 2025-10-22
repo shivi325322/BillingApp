@@ -84,7 +84,7 @@ jobs:
     - name: Build for CodeQL Analysis
       run: |
           npm install
-          npm run build -- --prod
+          npm run build -- --configuration production
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
