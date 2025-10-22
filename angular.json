@@ -99,5 +99,7 @@
       }
     }
   },
-  "defaultProject": "Billing-App"
+  "cli": {
+    "analytics": false
+  }
 }
