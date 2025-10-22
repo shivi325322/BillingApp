@@ -223,11 +223,11 @@
                   name="discount" 
                   [ngModel] = "defaultDiscountedAmount"
                   required
-                  min="5" 
+                  min="0" 
                   max="20">
                 </div>
-                <div class="text-danger" 
-                *ngIf="form.controls.discount.touched && form.controls.discount?.errors?.required">Discount is required</div>
+                <!--<div class="text-danger" 
+                *ngIf="form.controls.discount.touched && form.controls.discount?.errors?.required">Discount is required</div> -->
               </div>
             </div>
             <div class="col-md-6"> 
