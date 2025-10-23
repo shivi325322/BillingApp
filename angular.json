@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Billing-App:build:production"
+              "buildTarget": "Billing-App:build:production"
             },
             "development": {
-              "browserTarget": "Billing-App:build:development"
+              "buildTarget": "Billing-App:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Billing-App:build"
+            "buildTarget": "Billing-App:build"
           }
         },
         "test": {
