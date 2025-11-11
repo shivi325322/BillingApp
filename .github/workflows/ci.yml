@@ -45,6 +45,12 @@ jobs:
       - name: Build Angular App
         run: npm run build -- --configuration production
 
+      - name: Debug dist folder
+        run: |
+          echo "Listing generated build files..."
+          ls -R .
+          echo "====== DIST FOLDER ======"
+          ls -R dist || echo "dist folder not found"
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
