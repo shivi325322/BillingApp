@@ -6,6 +6,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
 import { BillingFormComponent } from './billing-form/billing-form.component';
 import { BillingService } from './shared/services/billing.service';
 import { BillingPrintComponent } from './billing-print/billing-print.component';
@@ -44,7 +45,8 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     BillingListComponent,
-    DashboardComponent
+    DashboardComponent,
+    HeaderComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
