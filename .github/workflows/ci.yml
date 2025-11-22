@@ -60,6 +60,7 @@ jobs:
           retention-days: 1
 
       - name: Deploy to Firebase
+        if: github.event_name == 'push'
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: |
