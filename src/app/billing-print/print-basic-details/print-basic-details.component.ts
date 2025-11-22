@@ -3,9 +3,10 @@ import { NgForm } from '@angular/forms';
 import { BillingService } from 'src/app/shared/services/billing.service';
 
 @Component({
-  selector: 'app-print-basic-details',
-  templateUrl: './print-basic-details.component.html',
-  styleUrls: ['./print-basic-details.component.css']
+    selector: 'app-print-basic-details',
+    templateUrl: './print-basic-details.component.html',
+    styleUrls: ['./print-basic-details.component.css'],
+    standalone: false
 })
 export class PrintBasicDetailsComponent implements OnInit {
   formValues:any;
