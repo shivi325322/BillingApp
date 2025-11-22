@@ -16,3 +16,11 @@
       rotateY(0deg);
   }
 }
+
+/* App shell layout tweaks to keep dashboard and form symmetric */
+.app-shell{padding-top:20px;padding-bottom:28px}
+.page-panel{min-height:520px}
+
+@media (max-width:900px){
+  .page-panel{min-height:unset;padding-top:8px}
+}

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { BillingService } from '../shared/services/billing.service';
 
 @Component({
   selector: 'app-billing-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './billing-list.component.html',
   styleUrls: ['./billing-list.component.css'],
 })

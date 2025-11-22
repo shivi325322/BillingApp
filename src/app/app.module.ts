@@ -15,12 +15,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { BillingMessageComponent } from './billing-message/billing-message.component';
 import { PrintInvoiceComponent } from './billing-print/print-invoice/print-invoice.component';
 import { BillingListComponent } from './billing-list/billing-list.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const appRoutes: Routes = [
-  { path: '', component: BillingMessageComponent }, //empty path
+  { path: '', component: BillingFormComponent },
+  { path: 'home', component: BillingFormComponent },
   { path: 'billing-print', component: BillingPrintComponent }, //path:localhost:4200/billing-print
-  { path: 'billing-list', component: BillingListComponent },
-  { path: 'home', component: BillingFormComponent }, //path:localhost:4200/billing-print
+  { path: 'billing-list', loadComponent: () => import('./billing-list/billing-list.component').then(m => m.BillingListComponent) },
+  { path: 'dashboard', loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent) },
+  // Wildcard route to catch unknown URLs and redirect to home
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
@@ -40,6 +44,7 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     BillingListComponent,
+    DashboardComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
