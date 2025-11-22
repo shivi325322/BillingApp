@@ -24,3 +24,19 @@
 @media (max-width:900px){
   .page-panel{min-height:unset;padding-top:8px}
 }
+
+/* Footer styles (compact, slightly smaller than header) */
+.app-footer{
+  background: #f1f3f5;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  padding: 8px 0;
+}
+.app-footer .footer-text{
+  color: #444;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+@media (max-width:576px){
+  .app-footer .footer-text{font-size:0.8rem}
+}
