@@ -1,14 +1,13 @@
-<div class="container">
-  <div class="row"></div>
-  <div class="row">
-    <div class="col-md-6">
-      <div style="margin: 140px 0; text-align: center">
-        <h3>New feature coming soon</h3>
-        <p>We're working on an improved billing dashboard — stay tuned.</p>
-      </div>
+<div class="container app-shell">
+  <div class="row justify-content-center align-items-start g-4" style="padding:28px 0">
+    <div class="col-lg-4 col-md-5">
+      <app-dashboard></app-dashboard>
     </div>
-    <div class="col-md-6">
-      <router-outlet></router-outlet>
+
+    <div class="col-lg-6 col-md-7">
+      <div class="page-panel">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
 </div>
