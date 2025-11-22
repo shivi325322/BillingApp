@@ -1,16 +1,16 @@
 .table {
-    display: table;
-    /* width: 100%; */
-  }
-  .table-row {
-    display: table-row;
-  }
-  .table-cell {
-    display: table-cell;
-    padding: 5px;
-    /* border: 1px solid black; */
-  }
-  .table-header {
-    font-weight: bold;
-    background-color: lightgray;
-  }
+  display: table;
+  /* width: 100%; */
+}
+.table-row {
+  display: table-row;
+}
+.table-cell {
+  display: table-cell;
+  padding: 5px;
+  /* border: 1px solid black; */
+}
+.table-header {
+  font-weight: bold;
+  background-color: lightgray;
+}

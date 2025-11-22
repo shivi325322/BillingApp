@@ -1,65 +1,78 @@
-import { OnInit } from "@angular/core";
-import { NgForm } from "@angular/forms";
-import { BasicDetails } from "../models/basicDetail.model";
+import { Injectable } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { BasicDetails } from '../models/basicDetail.model';
+import { Observable } from 'rxjs';
+import { initializeApp, getApp, getApps } from 'firebase/app';
+import {
+  getFirestore,
+  collection as fsCollection,
+  addDoc as fsAddDoc,
+  onSnapshot as fsOnSnapshot,
+  doc as fsDoc,
+  updateDoc as fsUpdateDoc,
+  deleteDoc as fsDeleteDoc,
+} from 'firebase/firestore';
+import { environment } from '../../../environments/environment';
 
-export class BillingService{
- basicDetails:any;
- serviceList:services[];
- additionalServiceList:additionalServices[];
- _TotalAmount:number=0;
- _invoiceDetails:any;
- discount:any;
+@Injectable({
+  providedIn: 'root',
+})
+export class BillingService {
+  basicDetails: any;
+  serviceList: services[];
+  additionalServiceList: additionalServices[];
+  _TotalAmount: number = 0;
+  _invoiceDetails: any;
+  discount: any;
 
- constructor() {
-  this.serviceList=[];
-  this.additionalServiceList=[
+  constructor() {
+    this.serviceList = [];
+    this.additionalServiceList = [
+      {
+        id: '1',
+        serviceName: 'Cupping',
+        serviceCost: 800,
+      },
+      {
+        id: '2',
+        serviceName: 'Dry Needling',
+        serviceCost: 800,
+      },
+      {
+        id: '3',
+        serviceName: 'K-taping',
+        serviceCost: 800,
+      },
+      {
+        id: '4',
+        serviceName: 'Exercie Therapy',
+        serviceCost: 800,
+      },
+    ];
+  }
+  //Data for TreatmentType control to bind a drop down list
+  TreatmentType = [
     {
-        id:'1',
-        serviceName:'Cupping',
-        serviceCost:800
+      key: '0',
+      value: 'Regular',
+      desc: 'description',
     },
     {
-        id:'2',
-        serviceName:'Dry Needling',
-        serviceCost:800
+      key: '1',
+      value: 'Only Consultation',
+      desc: 'Consultation',
     },
     {
-        id:'3',
-        serviceName:'K-taping',
-        serviceCost:800
+      key: '2',
+      value: '7 Days treatment Plan',
+      desc: '7 Days treatment Plan',
     },
-    {
-        id:'4',
-        serviceName:'Exercie Therapy',
-        serviceCost:800
-    }
-  ]
- }
-//Data for TreatmentType control to bind a drop down list
-  TreatmentType=[
-    {
-    'key':'0',
-    'value':'Regular',
-    'desc':'description'
-    },
-    {
-      'key':'1',
-      'value':'Only Consultation',
-      'desc':'Consultation'
-    },
-    {
-    'key':'2',
-    'value':'7 Days treatment Plan',
-    'desc':'7 Days treatment Plan'
-    }
-  ]
+  ];
 
-
-
-  setBillingDetails(form:NgForm){
-    this.discount=form.value.discount;
+  setBillingDetails(form: NgForm) {
+    this.discount = form.value.discount;
     let uniqueId = `ID-${Math.floor(Date.now() / 10000)}`;
-    this.basicDetails=new BasicDetails(
+    this.basicDetails = new BasicDetails(
       uniqueId,
       form.value.name,
       form.value.age,
@@ -76,49 +89,129 @@ export class BillingService{
     // this.basicDetails={'name':form.value.name,'age':form.value.age};
   }
 
-  getBillingDetails(){
+  /**
+   * Persist billing details to Firestore. Returns the addDoc promise.
+   */
+  saveBillingDetailsToFirestore(form: NgForm) {
+    const payload = {
+      ...form.value,
+      services: this.serviceList || [],
+      createdAt: new Date().toISOString(),
+    };
+
+    // Use Firebase JS SDK directly to avoid Angular DI issues in some setups.
+    // Initialize app only if not already initialized.
+    let app: any;
+    if (!getApps().length) {
+      app = initializeApp(environment.firebase);
+    } else {
+      app = getApp();
+    }
+    const db = getFirestore(app);
+    const colRef = fsCollection(db, 'billingDetails');
+    return fsAddDoc(colRef, payload);
+  }
+
+  /**
+   * Returns an observable that emits all billing documents (with id)
+   */
+  getAllBillingDetails(): Observable<any[]> {
+    return new Observable<any[]>((observer) => {
+      let app: any;
+      if (!getApps().length) {
+        app = initializeApp(environment.firebase);
+      } else {
+        app = getApp();
+      }
+      const db = getFirestore(app);
+      const colRef = fsCollection(db, 'billingDetails');
+      const unsub = fsOnSnapshot(
+        colRef,
+        (snapshot) => {
+          const items = snapshot.docs.map((d) => ({
+            id: d.id,
+            ...(d.data() as any),
+          }));
+          observer.next(items);
+        },
+        (err) => observer.error(err),
+      );
+
+      return () => unsub();
+    });
+  }
+
+  /** Delete a billing document by id using Firebase SDK */
+  deleteBillingDetail(id: string) {
+    let app: any;
+    if (!getApps().length) {
+      app = initializeApp(environment.firebase);
+    } else {
+      app = getApp();
+    }
+    const db = getFirestore(app);
+    const docRef = fsDoc(db, 'billingDetails', id);
+    return fsDeleteDoc(docRef);
+  }
+
+  /** Update a billing document by id with partial data using Firebase SDK */
+  updateBillingDetail(id: string, data: any) {
+    let app: any;
+    if (!getApps().length) {
+      app = initializeApp(environment.firebase);
+    } else {
+      app = getApp();
+    }
+    const db = getFirestore(app);
+    const docRef = fsDoc(db, 'billingDetails', id);
+    return fsUpdateDoc(docRef, data);
+  }
+
+  getBillingDetails() {
     return this.basicDetails;
   }
 
-  getServiceList(){
+  getServiceList() {
     return this.serviceList;
   }
 
-  getAddtionalServicesList(){
+  getAddtionalServicesList() {
     return this.additionalServiceList.slice();
   }
 
-  addServiceList(service:string,sitting:any,cost:any){
+  addServiceList(service: string, sitting: any, cost: any) {
     //splice can be used to push/add a value at a specific index in an js array
-    this.serviceList.splice(0,0,{service,sitting,cost});
+    this.serviceList.splice(0, 0, { service, sitting, cost });
     //this.serviceList.push({service,sitting,cost});
   }
 
-  removeFromServiceList(index:any){
+  removeFromServiceList(index: any) {
     //splice can also be used to pop/remove a value at a specific index in an js array
-    this.serviceList.splice(index,1);
+    this.serviceList.splice(index, 1);
   }
 
-  GetTotalBillAmount(){
-    this._invoiceDetails=this.getServiceList();
-    let totalAmtList:[]=this._invoiceDetails.map(x=>x.cost);
-    totalAmtList.forEach(element => {
-      this._TotalAmount=this._TotalAmount+element;
+  GetTotalBillAmount() {
+    this._invoiceDetails = this.getServiceList();
+    let totalAmtList: [] = this._invoiceDetails.map((x) => x.cost);
+    totalAmtList.forEach((element) => {
+      this._TotalAmount = this._TotalAmount + element;
     });
-    let discountedAmount = Math.floor(this._TotalAmount * (this.discount/100));
-    this._TotalAmount= Math.floor(this._TotalAmount - discountedAmount);
-    return [this._TotalAmount,discountedAmount];
+    let discountedAmount = Math.floor(
+      this._TotalAmount * (this.discount / 100),
+    );
+    this._TotalAmount = Math.floor(this._TotalAmount - discountedAmount);
+    return [this._TotalAmount, discountedAmount];
   }
 }
 
-class services{
-  service:string;
-  sitting:number;
-  cost:number;
+class services {
+  service: string;
+  sitting: number;
+  cost: number;
 }
 
-class additionalServices{
-  id:string;
-  serviceName:string;
-  serviceCost:number;
+class additionalServices {
+  id: string;
+  serviceName: string;
+  serviceCost: number;
 }
