@@ -1,67 +1,64 @@
 <div>
-    <div class="row">
-        <div class="title center">Invoice</div>
+  <div class="row">
+    <div class="title center">Invoice</div>
+  </div>
+  <div class="row invoice-header">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="hr"></div>
+      <div class="row">
+        <div class="col-md-2">S.No</div>
+        <div class="col-md-8">Treatment Type</div>
+        <div class="col-md-2">Amount</div>
+      </div>
+      <div class="hr"></div>
     </div>
-    <div class="row invoice-header">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="hr"></div>
-            <div class="row">
-                <div class="col-md-2">
-                    S.No
-                </div>
-                <div class="col-md-8">
-                    Treatment Type
-                </div>
-                <div class="col-md-2">
-                    Amount
-                </div>
-            </div>
-            <div class="hr"></div>
+  </div>
+  <div class="row invoice-body">
+    <div class="col-md-10 col-md-offset-1">
+      <div *ngFor="let invoiceItem of _invoiceDetails; let i = index">
+        <div class="col-md-2">
+          {{ i + 1 }}
         </div>
-    </div>
-    <div class="row invoice-body">
-        <div class="col-md-10 col-md-offset-1">
-            <div *ngFor="let invoiceItem of _invoiceDetails;let i=index">
-                <div class="col-md-2">
-                    {{i+1}}
-                </div>
-                <div class="col-md-8">
-                    {{invoiceItem.service}}
-                </div>
-                <div class="col-md-2">
-                    {{invoiceItem.cost}}
-                    <!-- &#8377; // unicode for rupree symbol -->
-                </div>
-            </div>
+        <div class="col-md-8">
+          {{ invoiceItem.service }}
         </div>
-    </div>
-    <div class="row invoice-footer">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="hr"></div>
-            <div class="footer-data">
-                <div *ngIf="formvalues.discount>0">
-                    <div class="col-md-3 col-md-offset-7">
-                        <p>Discount</p>
-                    </div>
-                    <div class="col-md-2">
-                        {{_DiscountedAmount}}
-                    </div>
-                </div>
-                <div>
-                    <div class="col-md-3 col-md-offset-7">
-                        <p>Grand Total</p>
-                    </div>
-                    <div class="col-md-2">
-                        {{_TotalAmount}}
-                    </div>
-                    <div class="col-md-12">
-                        <p>Received Rs {{_TotalAmount}} by {{formvalues.payment}} on {{ today | date: 'longDate' }}</p>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-2">
+          {{ invoiceItem.cost }}
+          <!-- &#8377; // unicode for rupree symbol -->
         </div>
-        <div class="col-md-10 col-md-offset-1">
-        <div class="hr"></div>
-        </div>  
+      </div>
     </div>
+  </div>
+  <div class="row invoice-footer">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="hr"></div>
+      <div class="footer-data">
+        <div *ngIf="formvalues.discount > 0">
+          <div class="col-md-3 col-md-offset-7">
+            <p>Discount</p>
+          </div>
+          <div class="col-md-2">
+            {{ _DiscountedAmount }}
+          </div>
+        </div>
+        <div>
+          <div class="col-md-3 col-md-offset-7">
+            <p>Grand Total</p>
+          </div>
+          <div class="col-md-2">
+            {{ _TotalAmount }}
+          </div>
+          <div class="col-md-12">
+            <p>
+              Received Rs {{ _TotalAmount }} by {{ formvalues.payment }} on
+              {{ today | date: "longDate" }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10 col-md-offset-1">
+      <div class="hr"></div>
+    </div>
+  </div>
 </div>

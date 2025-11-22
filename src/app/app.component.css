@@ -1,17 +1,18 @@
 .brand {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotateX(-1800deg) rotateZ(0deg);
-    animation: circular-motion 5s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(-1800deg) rotateZ(0deg);
+  animation: circular-motion 5s linear infinite;
+}
+
+@keyframes circular-motion {
+  0% {
+    transform: translate(-50%, -50%) rotateX(-180deg) rotateZ(180deg)
+      rotateY(360deg);
   }
-  
-  @keyframes circular-motion {
-    0% {
-      transform: translate(-50%, -50%) rotateX(-180deg) rotateZ(180deg) rotateY(360deg);
-    }
-    100% {
-      transform: translate(-50%, -50%) rotateX(-180deg) rotateZ(180deg) rotateY(0deg);
-    }
+  100% {
+    transform: translate(-50%, -50%) rotateX(-180deg) rotateZ(180deg)
+      rotateY(0deg);
   }
-  
+}

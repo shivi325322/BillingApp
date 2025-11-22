@@ -1,258 +1,359 @@
 <div class="panel panel-primary">
-  <div class="panel-heading">
-    Patient Details
-  </div>
-    <form class="panel-body" (ngSubmit)="submitForm(form)" #form="ngForm">
+  <div class="panel-heading">Patient Details</div>
+  <form class="panel-body" (ngSubmit)="submitForm(form)" #form="ngForm">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        class="form-control input-sm"
+        type="text"
+        name="name"
+        ngModel
+        required
+        minlength="3"
+        maxlength="50"
+        pattern="[a-zA-Z ]+"
+      />
+      <div
+        class="text-danger"
+        *ngIf="
+          form.controls.name.touched && form.controls.name?.errors?.required
+        "
+      >
+        Name is required
+      </div>
+      <div
+        class="text-danger"
+        *ngIf="
+          form.controls.name.touched && form.controls.name?.errors?.minlength
+        "
+      >
+        Name should be atleast of 3 letters.
+      </div>
+      <div
+        class="text-danger"
+        *ngIf="
+          form.controls.name.touched && form.controls.name?.errors?.pattern
+        "
+      >
+        Name should be valid.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
         <div class="form-group">
-          <label for="name">Name:</label>
-          <input 
-          class="form-control input-sm" 
-          type="text" 
-          name="name" 
-          ngModel 
-          required 
-          minlength="3" 
-          maxlength="50"
-          pattern="[a-zA-Z ]+">
-          <div class="text-danger"
-          *ngIf="form.controls.name.touched && form.controls.name?.errors?.required">Name is required
+          <label for="age">Age:</label>
+          <input
+            class="form-control input-sm"
+            type="number"
+            name="age"
+            ngModel
+            required
+            min="5"
+            max="120"
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              form.controls.age.touched && form.controls.age?.errors?.required
+            "
+          >
+            Age is required
           </div>
-          <div class="text-danger"
-          *ngIf="form.controls.name.touched && form.controls.name?.errors?.minlength">Name should be atleast of 3 letters.
+          <div
+            class="text-danger"
+            *ngIf="form.controls.age.touched && form.controls.age?.errors?.min"
+          >
+            Age must be at least 5
           </div>
-          <div class="text-danger"
-          *ngIf="form.controls.name.touched && form.controls.name?.errors?.pattern">Name should be valid.
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="age">Age:</label>
-              <input 
-              class="form-control input-sm" 
-              type="number" 
-              name="age" 
-              ngModel 
-              required 
-              min="5" 
-              max="120">
-              <div class="text-danger" 
-              *ngIf="form.controls.age.touched && form.controls.age?.errors?.required">Age is required</div>
-              <div class="text-danger"  
-              *ngIf="form.controls.age.touched && form.controls.age?.errors?.min">Age must be at least 5</div>
-              <div class="text-danger"  
-              *ngIf="form.controls.age.touched && form.controls.age?.errors?.max">Age must be no more than 120</div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="mobile">Mobile Number:</label>
-              <input 
-              class="form-control input-sm" 
-              type="text" 
-              name="mobile" 
-              ngModel 
-              required 
-              pattern="[0-9]{10}">
-              <div class="text-danger" 
-              *ngIf="form.controls.mobile.touched && form.controls.mobile?.errors?.required">Mobile number is required</div>
-              <div class="text-danger" 
-              *ngIf="form.controls.mobile.touched && form.controls.mobile?.errors?.pattern">Mobile number must be valid</div>
-            </div>
+          <div
+            class="text-danger"
+            *ngIf="form.controls.age.touched && form.controls.age?.errors?.max"
+          >
+            Age must be no more than 120
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <label for="email">Email :</label>
-            <input 
-            type="email" 
-            class="form-control" 
-            name="email" 
-            [ngModel] ="defaultEmail"
-            required 
-            email 
-            #mail="ngModel">
-            <div *ngIf="!mail.valid && mail.touched">
-              <p class="text-danger">Enter valid email address</p>
-            </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="mobile">Mobile Number:</label>
+          <input
+            class="form-control input-sm"
+            type="text"
+            name="mobile"
+            ngModel
+            required
+            pattern="[0-9]{10}"
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              form.controls.mobile.touched &&
+              form.controls.mobile?.errors?.required
+            "
+          >
+            Mobile number is required
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <div>
-                <label>Gender:</label>
-              </div>
-                 <div 
-                 class="radio-inline" 
-                 *ngFor="let gender of Genders">
-                 <label><input 
-                    type="radio" 
-                    name="gender" 
-                    [value]="gender" 
-                    ngModel
-                    required
-                    #sex="ngModel">
-                    {{gender}}</label>
-                 </div>
-            </div>
+          <div
+            class="text-danger"
+            *ngIf="
+              form.controls.mobile.touched &&
+              form.controls.mobile?.errors?.pattern
+            "
+          >
+            Mobile number must be valid
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="admissionDate">Date of Admission:</label>
-              <input 
-              class="form-control input-sm" 
-              type="date" 
-              name="admissionDate" 
-              ngModel 
-              required>
-              <div class="text-danger" 
-              *ngIf="form.controls.admissionDate.touched && form.controls.admissionDate?.errors?.required">Date of admission is required</div>
-            </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="email">Email :</label>
+        <input
+          type="email"
+          class="form-control"
+          name="email"
+          [ngModel]="defaultEmail"
+          required
+          email
+          #mail="ngModel"
+        />
+        <div *ngIf="!mail.valid && mail.touched">
+          <p class="text-danger">Enter valid email address</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div>
+            <label>Gender:</label>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="billingDate">Billing Date:</label>
-              <input 
-              class="form-control input-sm" 
-              type="date" 
-              name="billingDate" 
-              ngModel 
-              required>
-              <div class="text-danger" 
-              *ngIf="form.controls.billingDate.touched && form.controls.billingDate?.errors?.required">Billing date is required</div>
-            </div>
+          <div class="radio-inline" *ngFor="let gender of Genders">
+            <label
+              ><input
+                type="radio"
+                name="gender"
+                [value]="gender"
+                ngModel
+                required
+                #sex="ngModel"
+              />
+              {{ gender }}</label
+            >
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="admissionDate">Date of Admission:</label>
+          <input
+            class="form-control input-sm"
+            type="date"
+            name="admissionDate"
+            ngModel
+            required
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              form.controls.admissionDate.touched &&
+              form.controls.admissionDate?.errors?.required
+            "
+          >
+            Date of admission is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="billingDate">Billing Date:</label>
+          <input
+            class="form-control input-sm"
+            type="date"
+            name="billingDate"
+            ngModel
+            required
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              form.controls.billingDate.touched &&
+              form.controls.billingDate?.errors?.required
+            "
+          >
+            Billing date is required
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <div class="row">
-          <div class="col-lg-6 form-group">
-            <label for="treatmentType">Type of Treatment:</label>
-            <select class="form-control input-sm" 
-            name="treatmentType" 
-            #ddl_treatment="ngModel"
-            [ngModel] = "defaultTreatmentType"
-            required>
-              <option 
-              *ngFor="let treatmentType of Treatment" 
-              [value]="treatmentType.key"
+    <div class="row">
+      <div class="col-lg-6 form-group">
+        <label for="treatmentType">Type of Treatment:</label>
+        <select
+          class="form-control input-sm"
+          name="treatmentType"
+          #ddl_treatment="ngModel"
+          [ngModel]="defaultTreatmentType"
+          required
+        >
+          <option
+            *ngFor="let treatmentType of Treatment"
+            [value]="treatmentType.key"
+          >
+            {{ treatmentType.value }}
+          </option>
+        </select>
+        <div
+          class="text-danger"
+          *ngIf="
+            form.controls.treatmentType.touched &&
+            form.controls.treatmentType?.errors?.required
+          "
+        >
+          Type of treatment is required
+        </div>
+        <div class="text-info" *ngIf="form.controls.treatmentType.value == 0">
+          Note: Add atleast one service
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div>
+            <label for="cost">Enter Consultation/Package Cost</label>
+          </div>
+          <div>
+            <input
+              type="number"
+              class="form-control"
+              name="cost"
+              [ngModel]="defaultDiscountedAmount"
+            />
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="
+              form.controls.cost.touched && form.controls.cost?.errors?.required
+            "
+          >
+            Basic cost is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="table form-group" *ngIf="ddl_treatment.value == 0">
+        <div class="table-row">
+          <div class="table-cell table-header">Services</div>
+          <div class="table-cell table-header">Sitting</div>
+          <div class="table-cell table-header">Cost</div>
+          <div class="table-cell table-header">Action</div>
+        </div>
+        <div class="table-row" *ngFor="let item of Services; let i = index">
+          <div class="table-cell">{{ item.service }}</div>
+          <div class="table-cell">{{ item.sitting }}</div>
+          <div class="table-cell">{{ item.cost }}</div>
+          <div class="table-cell">
+            <button
+              class="btn btn-danger"
+              type="button"
+              (click)="OnRemoveService(i)"
+            >
+              -
+            </button>
+          </div>
+        </div>
+        <div class="table-row">
+          <div class="table-cell">
+            <select class="form-control" name="adservices" ngModel>
+              <option
+                *ngFor="let listItem of additionalServicesList"
+                [value]="listItem.id"
               >
-              {{treatmentType.value}}
+                {{ listItem.serviceName }}
               </option>
             </select>
-            <div class="text-danger" 
-            *ngIf="form.controls.treatmentType.touched && form.controls.treatmentType?.errors?.required">Type of treatment is required</div>
-            <div class="text-info" 
-            *ngIf="form.controls.treatmentType.value==0">Note: Add atleast one service</div>
           </div>
-            <div class="col-md-6"> 
-              <div class="form-group">
-                <div>
-                  <label for="cost">Enter Consultation/Package Cost</label>
-                </div>
-                <div>
-                  <input 
-                  type="number" 
-                  class="form-control" 
-                  name="cost" 
-                  [ngModel] = "defaultDiscountedAmount">
-                </div>
-                <div class="text-danger" 
-                *ngIf="form.controls.cost.touched && form.controls.cost?.errors?.required">Basic cost is Required</div>
-              </div>
-            </div>
-         
-            <div class="table form-group"  
-            *ngIf="ddl_treatment.value==0">
-              <div class="table-row">
-                <div class="table-cell table-header">Services</div>
-                <div class="table-cell table-header">Sitting</div>
-                <div class="table-cell table-header">Cost</div>
-                <div class="table-cell table-header">Action</div>
-              </div>
-              <div class="table-row" 
-              *ngFor="let item of Services;let i=index">
-                <div class="table-cell">{{item.service}}</div>
-                <div class="table-cell">{{item.sitting}}</div>
-                <div class="table-cell">{{item.cost}}</div>
-                <div class="table-cell">
-                  <button class="btn btn-danger" 
-                  type="button"
-                  (click)="OnRemoveService(i)">-</button>
-                </div>
-              </div>
-              <div class="table-row" >
-              <div class="table-cell">
-                <select 
-                class="form-control" 
-                name="adservices" 
-                ngModel>
-                  <option 
-                  *ngFor="let listItem of additionalServicesList"
-                  [value]="listItem.id">
-                    {{listItem.serviceName}}
-                  </option>
-                </select>
-              </div>
-              <div class="table-cell">
-                <input type="number" class="form-control" name="sittings" (change)="onSittingsChange()" [(ngModel)]="sittings" min="1" max="6">
-              </div>
-              <div class="table-cell">
-                <input type="number" class="form-control" name="netCost" [value]="calcCost" [(ngModel)]="calcCost">
-              </div>
-              <div class="table-cell">
-                <button class="btn btn-primary" type="button" (click)="onAddService()" name="add">+</button>
-              </div>
-            </div>
-            </div>
+          <div class="table-cell">
+            <input
+              type="number"
+              class="form-control"
+              name="sittings"
+              (change)="onSittingsChange()"
+              [(ngModel)]="sittings"
+              min="1"
+              max="6"
+            />
+          </div>
+          <div class="table-cell">
+            <input
+              type="number"
+              class="form-control"
+              name="netCost"
+              [value]="calcCost"
+              [(ngModel)]="calcCost"
+            />
+          </div>
+          <div class="table-cell">
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onAddService()"
+              name="add"
+            >
+              +
+            </button>
+          </div>
         </div>
-        
+      </div>
+    </div>
 
-          
-
-          <div class="row">
-            <div class="col-md-6"> 
-              <div class="form-group">
-                <div>
-                  <label for="discount">Discount(in percentage)</label>
-                </div>
-                <div>
-                  <input 
-                  type="number" 
-                  class="form-control" 
-                  name="discount" 
-                  [ngModel] = "defaultDiscountedAmount"
-                  required
-                  min="0" 
-                  max="20">
-                </div>
-                <!--<div class="text-danger" 
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div>
+            <label for="discount">Discount(in percentage)</label>
+          </div>
+          <div>
+            <input
+              type="number"
+              class="form-control"
+              name="discount"
+              [ngModel]="defaultDiscountedAmount"
+              required
+              min="0"
+              max="20"
+            />
+          </div>
+          <!--<div class="text-danger" 
                 *ngIf="form.controls.discount.touched && form.controls.discount?.errors?.required">Discount is required</div> -->
-              </div>
-            </div>
-            <div class="col-md-6"> 
-              <div class="form-group">
-                <div>
-                  <label>Payment:</label>
-                </div>
-                   <div class="radio-inline" *ngFor="let payment of _Payment">
-                    <label class="">
-                      <input type="radio" name="payment" [value]="payment" 
-                      ngModel
-                      required>
-                      {{payment}}
-                    </label>
-                   </div>
-              </div>
-            </div>
-          </div>
-          
-
-        
-        
-        <div class="right btn-toolbar">
-          <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
-          <!-- <button class="btn btn-info" (click)="onReset()">Reset</button> -->
         </div>
-    </form>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div>
+            <label>Payment:</label>
+          </div>
+          <div class="radio-inline" *ngFor="let payment of _Payment">
+            <label class="">
+              <input
+                type="radio"
+                name="payment"
+                [value]="payment"
+                ngModel
+                required
+              />
+              {{ payment }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right btn-toolbar">
+      <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
+        Submit
+      </button>
+      <!-- <button class="btn btn-info" (click)="onReset()">Reset</button> -->
+    </div>
+  </form>
 </div>

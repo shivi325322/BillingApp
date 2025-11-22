@@ -1,32 +1,34 @@
 <div class="panel panel-primary">
-<div class="panel-heading">
-Bill Details
-</div>
-<div style="padding: 10px;">
-    <button class="btn btn-primary" (click)="generatePdf()">Download PDF</button>
-    <button class="btn btn-warning" style="float:right;"><a href="/home">Back</a></button>
-</div>
-<div class="panel-body" style="border-top: 1px solid;" #panel>
+  <div class="panel-heading">Bill Details</div>
+  <div style="padding: 10px">
+    <button class="btn btn-primary" (click)="generatePdf()">
+      Download PDF
+    </button>
+    <button class="btn btn-warning" style="float: right">
+      <a href="/home">Back</a>
+    </button>
+  </div>
+  <div class="panel-body" style="border-top: 1px solid" #panel>
     <app-print-header></app-print-header>
     <div class="hr"></div>
     <app-print-basic-details></app-print-basic-details>
     <div class="hr"></div>
     <app-print-invoice></app-print-invoice>
     <div class="hr"></div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="right">
-                    <div style="margin-bottom: 20px;">
-                        <strong>Authorize Signature</strong>
-                    </div>
-                </div>
-                    <div style="margin-top: 40px;text-align: center;">
-                        <strong>This is a computer generated invoice no signature required.</strong>
-                    </div>
-                
-            </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="right">
+          <div style="margin-bottom: 20px">
+            <strong>Authorize Signature</strong>
+          </div>
         </div>
-        <div class="hr"></div>
-</div>
-
+        <div style="margin-top: 40px; text-align: center">
+          <strong
+            >This is a computer generated invoice no signature required.</strong
+          >
+        </div>
+      </div>
+    </div>
+    <div class="hr"></div>
+  </div>
 </div>
