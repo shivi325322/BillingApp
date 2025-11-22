@@ -5,9 +5,10 @@ import { BasicDetails } from '../shared/models/basicDetail.model';
 import { BillingService } from '../shared/services/billing.service';
 
 @Component({
-  selector: 'app-billing-form',
-  templateUrl: './billing-form.component.html',
-  styleUrls: ['./billing-form.component.css']
+    selector: 'app-billing-form',
+    templateUrl: './billing-form.component.html',
+    styleUrls: ['./billing-form.component.css'],
+    standalone: false
 })
 export class BillingFormComponent implements OnInit {
   @ViewChild('form') infoForm:NgForm;

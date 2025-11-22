@@ -3,9 +3,10 @@ import { NgForm } from '@angular/forms';
 import { BillingService } from 'src/app/shared/services/billing.service';
 
 @Component({
-  selector: 'app-print-invoice',
-  templateUrl: './print-invoice.component.html',
-  styleUrls: ['./print-invoice.component.css']
+    selector: 'app-print-invoice',
+    templateUrl: './print-invoice.component.html',
+    styleUrls: ['./print-invoice.component.css'],
+    standalone: false
 })
 export class PrintInvoiceComponent implements OnInit {
 formvalues:any;

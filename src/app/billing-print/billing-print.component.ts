@@ -6,9 +6,10 @@ import '../../assets/smtp.js'
 declare let Email: any;
 
 @Component({
-  selector: 'app-billing-print',
-  templateUrl: './billing-print.component.html',
-  styleUrls: ['./billing-print.component.css']
+    selector: 'app-billing-print',
+    templateUrl: './billing-print.component.html',
+    styleUrls: ['./billing-print.component.css'],
+    standalone: false
 })
 export class BillingPrintComponent implements OnInit {
   @ViewChild('panel') panel:ElementRef;
