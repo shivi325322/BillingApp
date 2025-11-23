@@ -39,6 +39,9 @@ export class BillingFormComponent implements OnInit {
     private router: Router,
   ) {}
 
+  // Toggle for issuing health card (off by default)
+  issueHealthCard: boolean = false;
+
   ngOnInit(): void {
     this.Treatment = this.dataService.TreatmentType;
     this.Services = this.dataService.getServiceList();

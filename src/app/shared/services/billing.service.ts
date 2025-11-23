@@ -93,11 +93,28 @@ export class BillingService {
    * Persist billing details to Firestore. Returns the addDoc promise.
    */
   saveBillingDetailsToFirestore(form: NgForm) {
-    const payload = {
+    const payload: any = {
       ...form.value,
       services: this.serviceList || [],
       createdAt: new Date().toISOString(),
     };
+
+    // Ensure issueHealthCard boolean is explicit (form checkbox may be undefined)
+    payload.issueHealthCard = !!form.value.issueHealthCard;
+
+    // If health card is requested, compute validity as 3 months from admissionDate
+    if (payload.issueHealthCard && payload.admissionDate) {
+      const adm = new Date(payload.admissionDate);
+      if (!isNaN(adm.getTime())) {
+        const validityDate = new Date(adm);
+        validityDate.setMonth(validityDate.getMonth() + 3);
+        payload.validity = validityDate.toISOString();
+      } else {
+        payload.validity = null;
+      }
+    } else {
+      payload.validity = null;
+    }
 
     // Use Firebase JS SDK directly to avoid Angular DI issues in some setups.
     // Initialize app only if not already initialized.
