@@ -46,6 +46,23 @@
 .card-title{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; }
 .icon{ width:20px; height:20px; color:rgba(255,255,255,0.95); display:block }
 
+.card-actions{ margin-left:auto }
+.icon-btn{
+  background: rgba(255,255,255,0.08);
+  border: none;
+  width:36px;
+  height:36px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  cursor:pointer;
+  transition: background 140ms ease, transform 120ms ease;
+  color: #fff;
+}
+.icon-btn:hover{ background: rgba(255,255,255,0.18); transform: translateY(-2px) }
+.icon-btn svg{ width:18px; height:18px }
+
 .card-body{ padding:14px 18px 18px 18px; display:flex; flex-direction:column; gap:8px; }
 .metric{ font-size:20px; font-weight:800; color:var(--text-dark); }
 .metric-sub{ color:var(--muted); font-size:13px; }

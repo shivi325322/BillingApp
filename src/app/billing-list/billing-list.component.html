@@ -35,16 +35,14 @@
             <th>ID</th>
             <th>Name</th>
             <th>Mobile</th>
-            <th>Treatment</th>
-            <th>Payment</th>
-            <th>Cost</th>
             <th>Billing Date</th>
             <th>Created</th>
+            <th>Issue Health Card</th>
             <th class="text-end">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let b of filtered; let i = index">
+          <tr *ngFor="let b of filtered; let i = index" (click)="selectRow(b)" style="cursor: pointer;">
             <td class="align-middle">{{ i + 1 }}</td>
             <td class="align-middle small text-muted">{{ b.id }}</td>
 
@@ -57,28 +55,23 @@
             </td>
 
             <td class="align-middle">{{ b.mobile }}</td>
-
-            <td class="align-middle small">{{ b.treatmentType }}</td>
-            <td class="align-middle small">{{ b.payment }}</td>
-            <td class="align-middle">₹{{ b.cost }}</td>
             <td class="align-middle small">{{ b.billingDate }}</td>
-            <td class="align-middle small text-muted">
-              {{ b.createdAt | slice: 0 : 19 }}
-            </td>
+            <td class="align-middle small">{{ b.createdAt }}</td>
+            <td class ="align-middle small">{{ b.issueHealthCard ? 'Yes' : 'No' }}</td>
 
             <td class="text-end align-middle">
               <div *ngIf="!editing[b.id]">
                 <button
                   class="btn btn-sm btn-outline-primary me-1"
                   title="Edit"
-                  (click)="startEdit(b)"
+                  (click)="startEdit(b); $event.stopPropagation()"
                 >
                   Edit
                 </button>
                 <button
                   class="btn btn-sm btn-danger"
                   title="Delete"
-                  (click)="deleteItem(b.id)"
+                  (click)="deleteItem(b.id); $event.stopPropagation()"
                 >
                   Delete
                 </button>
@@ -86,13 +79,13 @@
               <div *ngIf="editing[b.id]">
                 <button
                   class="btn btn-sm btn-success me-1"
-                  (click)="saveEdit(b.id)"
+                  (click)="saveEdit(b.id); $event.stopPropagation()"
                 >
                   Save
                 </button>
                 <button
                   class="btn btn-sm btn-secondary"
-                  (click)="cancelEdit(b.id)"
+                  (click)="cancelEdit(b.id); $event.stopPropagation()"
                 >
                   Cancel
                 </button>

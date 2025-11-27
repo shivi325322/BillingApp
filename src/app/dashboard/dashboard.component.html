@@ -1,4 +1,5 @@
 <div class="dashboard">
+  <ng-container *ngIf="!selectedBilling; else healthCard">
   <section class="card">
     <div class="card-top card-top--primary">
       <div class="card-title">
@@ -59,4 +60,34 @@
       <div class="metric-sub">Higher: <strong>{{ higherPayment }}</strong></div>
     </div>
   </section>
+  </ng-container>
+
+  <ng-template #healthCard>
+    <section class="card card--health">
+      <div class="card-top card-top--primary">
+        <div class="card-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <path d="M12 1v22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+            <path d="M17 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Health Card</span>
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn" (click)="dataService.clearSelectedBilling()" aria-label="Back" title="Back">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div><strong>Name:</strong> {{ selectedBilling?.name || selectedBilling?.patientName || selectedBilling?.id }}</div>
+        <div><strong>Admission:</strong> {{ selectedBilling?.admissionDate || selectedBilling?.admission || selectedBilling?._DOA }}</div>
+        <div><strong>Validity:</strong>
+          {{ (selectedBilling?.validity) ? (selectedBilling.validity | date:'mediumDate') : 'N/A' }}</div>
+        <div class="spacer"></div>
+        <div class="metric-sub">Offer: <strong>10% discount</strong></div>
+      </div>
+    </section>
+  </ng-template>
 </div>

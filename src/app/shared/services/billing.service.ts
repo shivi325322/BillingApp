@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BasicDetails } from '../models/basicDetail.model';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { initializeApp, getApp, getApps } from 'firebase/app';
 import {
   getFirestore,
   collection as fsCollection,
+  query as fsQuery,
+  where as fsWhere,
+  getDocs as fsGetDocs,
   addDoc as fsAddDoc,
   onSnapshot as fsOnSnapshot,
   doc as fsDoc,
@@ -50,6 +53,18 @@ export class BillingService {
       },
     ];
   }
+
+  // Selected billing document for UI interactions (e.g., show health card)
+  private _selectedBilling = new BehaviorSubject<any | null>(null);
+  selectedBilling$ = this._selectedBilling.asObservable();
+
+  selectBilling(item: any) {
+    this._selectedBilling.next(item);
+  }
+
+  clearSelectedBilling() {
+    this._selectedBilling.next(null);
+  }
   //Data for TreatmentType control to bind a drop down list
   TreatmentType = [
     {
@@ -85,6 +100,8 @@ export class BillingService {
       form.value.discount,
       form.value.email,
       form.value.cost,
+      form.value.issueHealthCard,
+      form.value.validity,
     );
     // this.basicDetails={'name':form.value.name,'age':form.value.age};
   }
@@ -93,11 +110,28 @@ export class BillingService {
    * Persist billing details to Firestore. Returns the addDoc promise.
    */
   saveBillingDetailsToFirestore(form: NgForm) {
-    const payload = {
+    const payload: any = {
       ...form.value,
       services: this.serviceList || [],
       createdAt: new Date().toISOString(),
     };
+
+    // Ensure issueHealthCard boolean is explicit (form checkbox may be undefined)
+    payload.issueHealthCard = !!form.value.issueHealthCard;
+
+    // If health card is requested, compute validity as 3 months from admissionDate
+    if (payload.issueHealthCard && payload.admissionDate) {
+      const adm = new Date(payload.admissionDate);
+      if (!isNaN(adm.getTime())) {
+        const validityDate = new Date(adm);
+        validityDate.setMonth(validityDate.getMonth() + 3);
+        payload.validity = validityDate.toISOString();
+      } else {
+        payload.validity = null;
+      }
+    } else {
+      payload.validity = null;
+    }
 
     // Use Firebase JS SDK directly to avoid Angular DI issues in some setups.
     // Initialize app only if not already initialized.
@@ -110,6 +144,32 @@ export class BillingService {
     const db = getFirestore(app);
     const colRef = fsCollection(db, 'billingDetails');
     return fsAddDoc(colRef, payload);
+  }
+
+  getPatientByMobile(mobileNumber: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let app: any;
+      if (!getApps().length) {
+        app = initializeApp(environment.firebase);
+      } else {
+        app = getApp();
+      }
+      const db = getFirestore(app);
+      const colRef = fsCollection(db, 'billingDetails');
+      const q = fsQuery(colRef, fsWhere('mobile', '==', mobileNumber));
+      fsGetDocs(q)
+        .then((querySnapshot) => {
+          if (!querySnapshot.empty) {
+            const patientData = querySnapshot.docs[0].data();
+            resolve(patientData);
+          } else {
+            resolve(null);
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   }
 
   /**
