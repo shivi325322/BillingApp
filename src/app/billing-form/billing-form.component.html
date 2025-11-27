@@ -33,7 +33,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="mobile">Mobile Number:</label>
-          <input class="form-control input-sm" type="text" name="mobile" ngModel required pattern="[0-9]{10}">
+          <input class="form-control input-sm" type="text" name="mobile"  (change)="onCheckMobileNumber()" ngModel required pattern="[0-9]{10}">
           <div class="text-danger" *ngIf="form.controls.mobile.touched && form.controls.mobile?.errors?.required">Mobile
             number is required</div>
           <div class="text-danger" *ngIf="form.controls.mobile.touched && form.controls.mobile?.errors?.pattern">Mobile
@@ -55,11 +55,8 @@
             <label>Gender:</label>
           </div>
           <div class="radio-inline" *ngFor="let gender of Genders">
-            <label class="radio-custom">
-              <input type="radio" name="gender" [value]="gender" ngModel required #sex="ngModel" />
-              <span class="radio-marker" aria-hidden="true"></span>
-              <span class="radio-label">{{gender}}</span>
-            </label>
+            <label><input type="radio" name="gender" [value]="gender" ngModel required #sex="ngModel">
+              {{gender}}</label>
           </div>
         </div>
       </div>
@@ -173,10 +170,9 @@
             <label>Payment:</label>
           </div>
           <div class="radio-inline" *ngFor="let payment of _Payment">
-            <label class="radio-custom">
-              <input type="radio" name="payment" [value]="payment" ngModel required />
-              <span class="radio-marker" aria-hidden="true"></span>
-              <span class="radio-label">{{payment}}</span>
+            <label class="">
+              <input type="radio" name="payment" [value]="payment" ngModel required>
+              {{payment}}
             </label>
           </div>
         </div>
@@ -190,7 +186,8 @@
      <div class="center">
         <div class="form-group">
           <label class="toggle-switch" aria-label="Issue Health Card">
-            <input type="checkbox" name="issueHealthCard" [(ngModel)]="issueHealthCard" />
+            <!-- if issueHealthCard has a value already disable the switch -->
+            <input type="checkbox" name="issueHealthCard"  [ngModel]="issueHealthCard" [disabled]="issueHealthCard"  />
             <span class="toggle-slider" role="presentation"></span>
           </label>
           <!-- <span class="switch-status">{{ issueHealthCard ? 'Enabled' : 'Disabled' }}</span> -->

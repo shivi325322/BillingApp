@@ -50,9 +50,40 @@ export class BillingFormComponent implements OnInit {
     console.log(this.additionalServicesList);
   }
 
+  onCheckMobileNumber() {
+    console.log('onCheckMobileNumberTriggered');
+    const mobileNumber = this.infoForm.value.mobile;
+    console.log('Checking mobile number:', mobileNumber);
+    console.log('Form before pre-fill:',this.infoForm.value.issueHealthCard);
+    this.dataService.getPatientByMobile(mobileNumber).then((patient) => {
+      if (patient) {
+        console.log('Patient found:', patient);
+        // Pre-fill the form with patient details
+        this.infoForm.setValue({
+          name: patient.name || '',
+          age: patient.age || '',
+          mobile: patient.mobile || '',
+          gender: patient.gender || '',
+          admissionDate: patient.admissionDate || '',
+          billingDate: this.infoForm.value.billingDate || '',
+          treatmentType: this.infoForm.value.treatmentType || this.defaultTreatmentType,
+          payment: this.infoForm.value.payment || '',
+          discount: this.infoForm.value.discount || this.defaultDiscountedAmount,
+          email: patient.email || this.defaultEmail,
+          cost: this.infoForm.value.cost || 0,
+          issueHealthCard: this.infoForm.value.issueHealthCard ?? false,
+          validity: this.infoForm.value.validity || '',
+        });
+        console.log('Form before post-fill:',this.infoForm.value.issueHealthCard);
+      } else {
+        console.log('No patient found with this mobile number.');
+      }
+    });
+  }
+
   //Gets the value of the form through NgForm type from the template. This is event is triggered when submit button if clicked of the form
   submitForm(form: NgForm) {
-    //console.log(form);
+    console.log(form);
     console.log('SubmitTriggered');
     // Save to Firestore first. After persistence, keep the in-memory details and navigate to printable page.
     this.dataService

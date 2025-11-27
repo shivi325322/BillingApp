@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BillingService } from '../shared/services/billing.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +13,8 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   bills: any[] = [];
+  selectedBilling: any = null;
+  private _subs: Subscription[] = [];
 
   // totals
   monthlyTotal = 0;
@@ -33,12 +36,22 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataService.getAllBillingDetails().subscribe(items => {
+    const s1 = this.dataService.getAllBillingDetails().subscribe(items => {
       this.bills = items || [];
       // debug: show a sample document so we can verify field names
       if (this.bills.length) console.debug('dashboard - sample billing doc:', this.bills[0]);
       this.computeStats();
     }, err => console.error('Failed to load billing details', err));
+
+    const s2 = this.dataService.selectedBilling$.subscribe(sb => {
+      this.selectedBilling = sb;
+      console.log('selected billing changes:',sb);
+    });
+    this._subs.push(s1 as Subscription, s2 as Subscription);
+  }
+
+  ngOnDestroy(): void {
+    this._subs.forEach(s => s && s.unsubscribe && s.unsubscribe());
   }
 
   private parseDate(d: any): Date | null {

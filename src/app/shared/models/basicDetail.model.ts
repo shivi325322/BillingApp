@@ -11,6 +11,8 @@ export class BasicDetails {
   public _discount: number = 0;
   public _email: string = '';
   public _cost: number = 0;
+  public _issueHealthCard: boolean = false;
+  public _validity: string = '';
 
   constructor(
     private id: string,
@@ -25,6 +27,8 @@ export class BasicDetails {
     private discount,
     private email,
     private cost,
+    private issueHealthCard,
+    private validity = '',
   ) {
     this._id = id;
     this._name = name;
@@ -38,5 +42,7 @@ export class BasicDetails {
     this._discount = discount;
     this._email = email;
     this._cost = cost;
+    this._issueHealthCard = issueHealthCard
+    this._validity = validity;
   }
 }

@@ -48,6 +48,8 @@ export class BillingListComponent implements OnInit {
       cost: i.cost || i._cost || i['cost'] || 0,
       services: i.services || [],
       createdAt: i.createdAt || i._createdAt || '',
+      validity: i.validity || i._validity || i['validity'] || '',
+      issueHealthCard: i.issueHealthCard || i._issueHealthCard || i['issueHealthCard'] || false,
     };
   }
 
@@ -104,5 +106,10 @@ export class BillingListComponent implements OnInit {
       .deleteBillingDetail(id)
       .then(() => console.log('Deleted', id))
       .catch((err) => console.error('Delete failed', err));
+  }
+
+  selectRow(item: any) {
+    // publish selection to service so dashboard can react
+    this.dataService.selectBilling(item);
   }
 }
