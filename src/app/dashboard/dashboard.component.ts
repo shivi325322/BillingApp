@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BillingService } from '../shared/services/billing.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-dashboard',
@@ -80,8 +81,16 @@ export class DashboardComponent implements OnInit {
 
   computeStats(){
     const now = new Date();
+    const quarters = [
+      { start: new Date(now.getFullYear(), 0, 1), end: new Date(now.getFullYear(), 2, 31) },   // Q1
+      { start: new Date(now.getFullYear(), 3, 1), end: new Date(now.getFullYear(), 5, 30) },   // Q2
+      { start: new Date(now.getFullYear(), 6, 1), end: new Date(now.getFullYear(), 8, 30) },   // Q3
+      { start: new Date(now.getFullYear(), 9, 1), end: new Date(now.getFullYear(), 11, 31) }   // Q4
+    ];
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     const startQuarter = new Date(now.getFullYear(), now.getMonth() - 2, 1);
+
 
     let monthlyTotal = 0;
     let quarterlyTotal = 0;
@@ -105,11 +114,12 @@ export class DashboardComponent implements OnInit {
         cost = b.services.reduce((s:any, it:any) => s + (Number(it.cost) || Number(it.amount) || 0), 0);
       }
 
-      if (dt && dt >= startOfMonth && dt <= now) {
+      if (dt && dt >= startOfMonth && dt <= endOfMonth) {
         monthlyTotal += cost;
         monthlyCount += 1;
       }
-      if (dt && dt >= startQuarter && dt <= now) {
+      const currentQuarter = quarters.find(q => now >= q.start && now <= q.end);
+      if (dt && currentQuarter && dt >= currentQuarter.start && dt <= currentQuarter.end) {
         quarterlyTotal += cost;
         quarterlyCount += 1;
       }
@@ -132,5 +142,23 @@ export class DashboardComponent implements OnInit {
     if (this.cashPct > this.upiPct) this.higherPayment = 'Cash';
     else if (this.upiPct > this.cashPct) this.higherPayment = 'UPI';
     else this.higherPayment = 'Equal';
+  }
+
+  downloadHealthCard() {
+    const element = document.getElementById('healthCardSection');
+    console.log('healthcar:',element)
+    if (!element) {
+      console.error('Health card section not found!');
+      return;
+    }
+    const pdf = new jsPDF('p', 'pt', 'a4');
+    pdf.html(element, {
+      callback: function (pdf) {
+        pdf.setFontSize(12);
+        pdf.setFont('Noto Sans');
+        const fileName = 'Health_Card_' + (new Date()).toISOString().split('T')[0] + '.pdf';
+        pdf.save(fileName);
+      },
+    });
   }
 }

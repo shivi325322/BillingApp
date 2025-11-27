@@ -187,7 +187,7 @@
         <div class="form-group">
           <label class="toggle-switch" aria-label="Issue Health Card">
             <!-- if issueHealthCard has a value already disable the switch -->
-            <input type="checkbox" name="issueHealthCard"  [ngModel]="issueHealthCard" [disabled]="issueHealthCard"  />
+            <input type="checkbox" name="issueHealthCard"  [(ngModel)]="issueHealthCard" [disabled]="issueHealthCard"  />
             <span class="toggle-slider" role="presentation"></span>
           </label>
           <!-- <span class="switch-status">{{ issueHealthCard ? 'Enabled' : 'Disabled' }}</span> -->
