@@ -69,8 +69,8 @@ export class BillingService {
   TreatmentType = [
     {
       key: '0',
-      value: 'Regular',
-      desc: 'description',
+      value: 'Others',
+      desc: 'Other treatment plans',
     },
     {
       key: '1',
@@ -102,6 +102,7 @@ export class BillingService {
       form.value.cost,
       form.value.issueHealthCard,
       form.value.validity,
+      form.value.treatmentPlan,
     );
     // this.basicDetails={'name':form.value.name,'age':form.value.age};
   }
@@ -227,17 +228,11 @@ export class BillingService {
     return fsUpdateDoc(docRef, data);
   }
 
-  getBillingDetails() {
-    return this.basicDetails;
-  }
+  getBillingDetails = () => this.basicDetails;
 
-  getServiceList() {
-    return this.serviceList;
-  }
+  getServiceList = () => this.serviceList;
 
-  getAddtionalServicesList() {
-    return this.additionalServiceList.slice();
-  }
+  getAddtionalServicesList = () => this.additionalServiceList.slice();
 
   addServiceList(service: string, sitting: any, cost: any) {
     //splice can be used to push/add a value at a specific index in an js array

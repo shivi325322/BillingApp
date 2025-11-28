@@ -1,4 +1,4 @@
-<div class="billing-list container">
+<div class="panel panel-primary" style="width: 900px;">
   <div class="toolbar d-flex align-items-center justify-content-between mb-3">
     <div>
       <nav aria-label="breadcrumb">
@@ -10,13 +10,8 @@
       <h4 class="mb-0">Billing Records</h4>
     </div>
     <div class="d-flex align-items-center gap-2">
-      <input
-        class="form-control form-control-sm"
-        type="search"
-        placeholder="Search by name, id, mobile or treatment"
-        [(ngModel)]="searchTerm"
-        (ngModelChange)="applyFilter()"
-      />
+      <input class="form-control form-control-sm" type="search" placeholder="Search by name, id, mobile or treatment"
+        [(ngModel)]="searchTerm" (ngModelChange)="applyFilter()" />
       <button class="btn btn-sm btn-outline-secondary" (click)="applyFilter()">
         Search
       </button>
@@ -48,45 +43,30 @@
 
             <td class="align-middle" *ngIf="!editing[b.id]">{{ b.name }}</td>
             <td *ngIf="editing[b.id]" class="align-middle">
-              <input
-                class="form-control form-control-sm"
-                [(ngModel)]="editedData[b.id].name"
-              />
+              <input class="form-control form-control-sm" [(ngModel)]="editedData[b.id].name" />
             </td>
 
             <td class="align-middle">{{ b.mobile }}</td>
             <td class="align-middle small">{{ b.billingDate }}</td>
             <td class="align-middle small">{{ b.createdAt }}</td>
-            <td class ="align-middle small">{{ b.issueHealthCard ? 'Yes' : 'No' }}</td>
+            <td class="align-middle small">{{ b.issueHealthCard ? 'Yes' : 'No' }}</td>
 
             <td class="text-end align-middle">
               <div *ngIf="!editing[b.id]">
-                <button
-                  class="btn btn-sm btn-outline-primary me-1"
-                  title="Edit"
-                  (click)="startEdit(b); $event.stopPropagation()"
-                >
+                <button class="btn btn-sm btn-outline-primary me-1" title="Edit"
+                  (click)="startEdit(b); $event.stopPropagation()">
                   Edit
                 </button>
-                <button
-                  class="btn btn-sm btn-danger"
-                  title="Delete"
-                  (click)="deleteItem(b.id); $event.stopPropagation()"
-                >
+                <button class="btn btn-sm btn-danger" title="Delete"
+                  (click)="deleteItem(b.id); $event.stopPropagation()">
                   Delete
                 </button>
               </div>
               <div *ngIf="editing[b.id]">
-                <button
-                  class="btn btn-sm btn-success me-1"
-                  (click)="saveEdit(b.id); $event.stopPropagation()"
-                >
+                <button class="btn btn-sm btn-success me-1" (click)="saveEdit(b.id); $event.stopPropagation()">
                   Save
                 </button>
-                <button
-                  class="btn btn-sm btn-secondary"
-                  (click)="cancelEdit(b.id); $event.stopPropagation()"
-                >
+                <button class="btn btn-sm btn-secondary" (click)="cancelEdit(b.id); $event.stopPropagation()">
                   Cancel
                 </button>
               </div>
@@ -101,4 +81,5 @@
       </table>
     </div>
   </div>
+
 </div>

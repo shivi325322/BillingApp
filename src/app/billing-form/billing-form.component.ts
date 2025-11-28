@@ -17,6 +17,7 @@ export class BillingFormComponent implements OnInit {
   defaultEmail = 'synergycliniclko@gmail.com';
   defaultTreatmentType = '2';
   defaultDiscountedAmount = '0';
+  defaultdescription = '';
 
   //Data to bind a radiobuttons
   Genders = ['Male', 'Female', 'Others'];
@@ -37,7 +38,7 @@ export class BillingFormComponent implements OnInit {
   constructor(
     private dataService: BillingService,
     private router: Router,
-  ) {}
+  ) { }
 
   // Toggle for issuing health card (off by default)
   issueHealthCard: boolean = false;
@@ -72,8 +73,8 @@ export class BillingFormComponent implements OnInit {
           cost: patient.cost || 0,
           issueHealthCard: patient.issueHealthCard || false,
           validity: patient.validity || '',
+          treatmentPlan: patient.treatmentPlan || this.defaultdescription
         });
-        console.log('Form before post-fill:',this.infoForm.value.issueHealthCard);
       } else {
         console.log('No patient found with this mobile number.');
       }
