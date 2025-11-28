@@ -15,16 +15,17 @@ export class PrintInvoiceComponent implements OnInit {
   _TotalAmount: number = 0;
   _DiscountedAmount: number = 0;
   _invoiceDetails: any;
-  constructor(private dataService: BillingService) {}
+  constructor(private dataService: BillingService) { }
 
   ngOnInit(): void {
     this.formvalues = this.dataService.getBillingDetails();
+    console.log('treatment plan :', this.formvalues.treatmentPlan);
     console.log('print-invoice_component');
     console.log(this.formvalues);
     this.today = this.formvalues.DOB;
     const cost = parseInt(this.formvalues.cost);
     if (this.formvalues.treatmentType === '0') {
-      this.dataService.addServiceList('Consultation', 1, cost);
+      this.dataService.addServiceList(this.formvalues.treatmentPlan, 1, cost);
     } else if (this.formvalues.treatmentType === '1') {
       this.dataService.addServiceList('Consultation', 1, cost);
     } else if (this.formvalues.treatmentType === '2') {

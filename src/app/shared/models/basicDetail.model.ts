@@ -13,6 +13,7 @@ export class BasicDetails {
   public _cost: number = 0;
   public _issueHealthCard: boolean = false;
   public _validity: string = '';
+  public _treatmentPlan: string = '';
 
   constructor(
     private id: string,
@@ -29,6 +30,7 @@ export class BasicDetails {
     private cost,
     private issueHealthCard,
     private validity = '',
+    private treatmentPlan : string,
   ) {
     this._id = id;
     this._name = name;
@@ -44,5 +46,6 @@ export class BasicDetails {
     this._cost = cost;
     this._issueHealthCard = issueHealthCard
     this._validity = validity;
+    this._treatmentPlan = treatmentPlan;
   }
 }

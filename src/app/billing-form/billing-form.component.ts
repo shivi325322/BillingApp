@@ -17,6 +17,7 @@ export class BillingFormComponent implements OnInit {
   defaultEmail = 'synergycliniclko@gmail.com';
   defaultTreatmentType = '2';
   defaultDiscountedAmount = '0';
+  defaultdescription = '';
 
   //Data to bind a radiobuttons
   Genders = ['Male', 'Female', 'Others'];
@@ -37,7 +38,7 @@ export class BillingFormComponent implements OnInit {
   constructor(
     private dataService: BillingService,
     private router: Router,
-  ) {}
+  ) { }
 
   // Toggle for issuing health card (off by default)
   issueHealthCard: boolean = false;
@@ -54,7 +55,6 @@ export class BillingFormComponent implements OnInit {
     console.log('onCheckMobileNumberTriggered');
     const mobileNumber = this.infoForm.value.mobile;
     console.log('Checking mobile number:', mobileNumber);
-    console.log('Form before pre-fill:',this.infoForm.value.issueHealthCard);
     this.dataService.getPatientByMobile(mobileNumber).then((patient) => {
       if (patient) {
         console.log('Patient found:', patient);
@@ -65,16 +65,16 @@ export class BillingFormComponent implements OnInit {
           mobile: patient.mobile || '',
           gender: patient.gender || '',
           admissionDate: patient.admissionDate || '',
-          billingDate: this.infoForm.value.billingDate || '',
-          treatmentType: this.infoForm.value.treatmentType || this.defaultTreatmentType,
-          payment: this.infoForm.value.payment || '',
-          discount: this.infoForm.value.discount || this.defaultDiscountedAmount,
+          billingDate: patient.billingDate || '',
+          treatmentType: patient.treatmentType || this.defaultTreatmentType,
+          payment: patient.payment || '',
+          discount: 10,
           email: patient.email || this.defaultEmail,
-          cost: this.infoForm.value.cost || 0,
-          issueHealthCard: this.infoForm.value.issueHealthCard ?? false,
-          validity: this.infoForm.value.validity || '',
+          cost: patient.cost || 0,
+          issueHealthCard: patient.issueHealthCard || false,
+          validity: patient.validity || '',
+          treatmentPlan: patient.treatmentPlan || this.defaultdescription
         });
-        console.log('Form before post-fill:',this.infoForm.value.issueHealthCard);
       } else {
         console.log('No patient found with this mobile number.');
       }
