@@ -33,7 +33,8 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="mobile">Mobile Number:</label>
-          <input class="form-control input-sm" type="text" name="mobile" (change)="onCheckMobileNumber()" ngModel
+          <!-- (change)="onCheckMobileNumber()" -->
+          <input class="form-control input-sm" type="text" name="mobile" ngModel
             required pattern="[0-9]{10}">
           <div class="text-danger" *ngIf="form.controls.mobile.touched && form.controls.mobile?.errors?.required">Mobile
             number is required</div>
