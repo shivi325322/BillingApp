@@ -228,6 +228,31 @@ export class BillingService {
     return fsUpdateDoc(docRef, data);
   }
 
+    /**
+   * Fetch a billing document by id using Firebase SDK
+   */
+  getBillingDetailById(id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let app: any;
+      if (!getApps().length) {
+        app = initializeApp(environment.firebase);
+      } else {
+        app = getApp();
+      }
+      const db = getFirestore(app);
+      const docRef = fsDoc(db, 'billingDetails', id);
+      import('firebase/firestore').then(firestore => {
+        firestore.getDoc(docRef).then((docSnap: any) => {
+          if (docSnap.exists()) {
+            resolve({ id: docSnap.id, ...docSnap.data() });
+          } else {
+            resolve(null);
+          }
+        }).catch(reject);
+      });
+    });
+  }
+
   getBillingDetails = () => this.basicDetails;
 
   getServiceList = () => this.serviceList;
