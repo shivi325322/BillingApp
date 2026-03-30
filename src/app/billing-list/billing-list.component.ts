@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BillingService } from '../shared/services/billing.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-billing-list',
@@ -18,7 +19,7 @@ export class BillingListComponent implements OnInit {
   editing: { [id: string]: boolean } = {};
   editedData: { [id: string]: any } = {};
 
-  constructor(private dataService: BillingService) {}
+  constructor(private dataService: BillingService, private router: Router) {}
 
   ngOnInit(): void {
     // subscribe to the observable and normalize incoming docs
@@ -76,10 +77,14 @@ export class BillingListComponent implements OnInit {
     });
   }
 
+
   startEdit(item: any) {
-    this.editing[item.id] = true;
-    // shallow copy editable fields
-    this.editedData[item.id] = { ...item };
+    this.editItem(item);
+  }
+
+  editItem(item: any) {
+    // Navigate to billing-form with the item's id as a route param
+    this.router.navigate(['/billing-form', item.id]);
   }
 
   cancelEdit(id: string) {

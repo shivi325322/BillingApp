@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BasicDetails } from '../shared/models/basicDetail.model';
 import { BillingService } from '../shared/services/billing.service';
 
@@ -38,6 +38,7 @@ export class BillingFormComponent implements OnInit {
   constructor(
     private dataService: BillingService,
     private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   // Toggle for issuing health card (off by default)
@@ -47,6 +48,35 @@ export class BillingFormComponent implements OnInit {
     this.Treatment = this.dataService.TreatmentType;
     this.Services = this.dataService.getServiceList();
     this.additionalServicesList = this.dataService.getAddtionalServicesList();
+    // Check if editing (route param :id)
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.dataService.getBillingDetailById(id).then((billing) => {
+          if (billing && this.infoForm) {
+            // Patch form if ViewChild is ready
+            setTimeout(() => {
+              this.infoForm.setValue({
+                name: billing.name || '',
+                age: billing.age || '',
+                mobile: billing.mobile || '',
+                gender: billing.gender || '',
+                admissionDate: billing.admissionDate || '',
+                billingDate: billing.billingDate || '',
+                treatmentType: billing.treatmentType || this.defaultTreatmentType,
+                payment: billing.payment || '',
+                discount: billing.discount || 0,
+                email: billing.email || this.defaultEmail,
+                cost: billing.cost || 0,
+                issueHealthCard: billing.issueHealthCard || false,
+                validity: billing.validity || '',
+                treatmentPlan: billing.treatmentPlan || this.defaultdescription
+              });
+            });
+          }
+        });
+      }
+    });
     console.log(this.Services);
     console.log(this.additionalServicesList);
   }
