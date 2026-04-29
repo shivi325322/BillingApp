@@ -8,7 +8,34 @@
 .bill-title {
   font-size: 18px;
   font-weight: bold;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: Arial, sans-serif;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+
+.bill-title-small {
+  font-size: 12px;
+  color: #0052CC;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.bill-title-physio {
+  font-size: 18px;
+  color: #E50012;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.bill-title-xpert {
+  font-size: 18px;
+  color: #0052CC;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .bill-address {
